@@ -119,7 +119,7 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   @override
   void initState() {
     if (widget.valueNotifier == null) {
-      heightNotifier = ValueNotifier(widget.minHeight);
+      heightNotifier = ValueNotifier(widget.maxHeight);
     } else {
       heightNotifier = widget.valueNotifier!;
     }
