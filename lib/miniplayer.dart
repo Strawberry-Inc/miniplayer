@@ -53,11 +53,14 @@ class Miniplayer extends StatefulWidget {
   ///Used to set the color of the background box shadow
   final Color backgroundBoxShadow;
 
+  final Alignment alignment;
+
   const Miniplayer({
     Key? key,
     required this.minHeight,
     required this.maxHeight,
     required this.builder,
+    this.alignment = Alignment.topCenter,
     this.curve = Curves.easeOut,
     this.elevation = 0,
     this.backgroundColor,
@@ -175,19 +178,10 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
               (widget.maxHeight - widget.minHeight);
 
           return Stack(
-            alignment: Alignment.bottomCenter,
+            alignment: widget.alignment,
             children: [
-              if (_percentage > 0)
-                GestureDetector(
-                  onTap: () => _animateToHeight(widget.minHeight),
-                  child: Opacity(
-                    opacity: borderDouble(
-                        minRange: 0.0, maxRange: 1.0, value: _percentage),
-                    child: Container(color: widget.backgroundColor),
-                  ),
-                ),
               Align(
-                alignment: Alignment.bottomCenter,
+                alignment: widget.alignment,
                 child: SizedBox(
                   height: height,
                   child: GestureDetector(
@@ -223,10 +217,7 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    onTap: () => _snapToPosition(_dragHeight != widget.maxHeight
-                        ? PanelState.MAX
-                        : PanelState.MIN),
-                    onPanStart: (details) {
+                    /* onPanStart: (details) {
                       _startHeight = _dragHeight;
                       updateCount = 0;
 
@@ -296,7 +287,7 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                       updateCount++;
 
                       _handleHeightChange();
-                    },
+                    }, */
                   ),
                 ),
               ),
